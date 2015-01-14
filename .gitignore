@@ -1,0 +1,10 @@
+/target
+.DS_Store
+.settings
+.classpath
+.loadpath
+# External tool builders
+.externalToolBuilders/
+ 
+# Locally stored "Eclipse launch configurations"
+*.launch
