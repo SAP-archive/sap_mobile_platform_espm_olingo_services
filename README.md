@@ -4,7 +4,7 @@ Sample OData Delta-Token-Enabled Web Service
 Installation
 ------------
 
->Note: This project is referenced in an SAP Community Network blog [found here](http://scn.sap.com/community/developer-center/mobility-platform/blog/2015/01/06/build-an-optimized-hybrid-mobile-application-using-the-hana-cloud-platform).  If you are interested in this code for some other purpose, you can follow the steps outlined below to build and run the project.
+>Note: This project is referenced in a series of SAP Community Network blog articles ([link](http://scn.sap.com/community/developer-center/mobility-platform/blog/2015/01/14/build-an-optimized-hybrid-mobile-application-using-the-hana-cloud-platform)).  If you are interested in this code for some other purpose, you can follow the steps outlined below to build and run the project.
 
 __Step 1: Clone this github repository__
 
