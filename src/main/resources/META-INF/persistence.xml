@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="ESPM" transaction-type="RESOURCE_LOCAL">
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<class>com.xsmp.espm.model.Supplier</class>
+		<class>com.xsmp.espm.model.Customer</class>
+		<class>com.xsmp.espm.model.Product</class>
+		<class>com.xsmp.espm.model.Stock</class>
+		<class>com.xsmp.espm.model.ProductCategory</class>
+		<class>com.xsmp.espm.model.ProductText</class>
+		<class>com.xsmp.espm.model.SalesOrderHeader</class>
+		<class>com.xsmp.espm.model.SalesOrderItem</class>
+		<class>com.xsmp.espm.model.SalesOrderItemId</class>
+		<class>com.xsmp.espm.model.PurchaseOrderHeader</class>
+		<class>com.xsmp.espm.model.PurchaseOrderItem</class>
+		<class>com.xsmp.espm.model.PurchaseOrderItemId</class>
+		<shared-cache-mode>NONE</shared-cache-mode>
+		<properties>
+			<property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:HSQL_ESPM"/> 
+			<property name="javax.persistence.jdbc.user" value="sa"/>
+			<property name="javax.persistence.jdbc.password" value=""/>
+			<property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver"/>
+			<property name="sql.longvar_is_lob" value="true"/>
+			<property name="eclipselink.ddl-generation.output-mode" value="both"/>
+			<property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
+			<!-- 
+			<property name="eclipselink.logging.level" value="FINE"/>
+			<property name="eclipselink.logging.parameters" value="true"/> 
+			-->
+		</properties>
+	</persistence-unit>
+</persistence>
