@@ -19,10 +19,12 @@ import javax.persistence.OneToOne;
 import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
+import javax.persistence.CascadeType;
 
 import com.xsmp.espm.util.Utility;
 
@@ -86,6 +88,10 @@ public class Product {
 
 	@ManyToOne
 	private Supplier supplier;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	Stock stock;
 	
 	@Basic(optional = false)
 	@Temporal(TemporalType.TIMESTAMP)

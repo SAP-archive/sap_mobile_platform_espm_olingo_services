@@ -1,0 +1,1 @@
+CREATE TRIGGER PRODUCT_PRICE_UPDATE AFTER UPDATE ON ESPM_PRODUCT CALL "com.xsmp.espm.util.ProductPushNotificationTrigger"

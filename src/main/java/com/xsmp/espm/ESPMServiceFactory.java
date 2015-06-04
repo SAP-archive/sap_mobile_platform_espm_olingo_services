@@ -33,12 +33,18 @@ public class ESPMServiceFactory extends ODataJPAServiceFactory {
 	
 	private static boolean first_invocation = true;
 	
-	/** Load Sample Data **/
-	static {
-		
-		//populateTestRows();
-
-	}
+	/*
+	 * Default destination configuration for push notification trigger
+	 * 
+	 * @see com.xsmp.espm.data.DataLoader
+	 * @see com.xsmp.espm.util.ProductPushNotificationTrigger
+	 */
+	private static final String user = "no-default-user";
+	private static final String password = "no-default-password";
+	private static final String hostname = "hcpms-XXXXXXXtrial.hanatrial.ondemand.com";
+	private static final String application_name = "no.default.application";
+	private static Integer adminHTTPPort = 443;
+	private static Integer adminUseHTTPS = 1;
 	
 	 @Override
 	  public ODataJPAContext initializeODataJPAContext()
@@ -86,6 +92,30 @@ public class ESPMServiceFactory extends ODataJPAServiceFactory {
 		 boolean error = Boolean.parseBoolean((String) config.getObject(SHOW_DETAIL_ERROR)); 
 		 setDetailErrors(error); 
 	 }
+
+	public static String getUser() {
+		return user;
+	}
+
+	public static String getPassword() {
+		return password;
+	}
+
+	public static String getHostname() {
+		return hostname;
+	}
+
+	public static String getApplicationName() {
+		return application_name;
+	}
+
+	public static Integer getAdminHttpPort() {
+		return adminHTTPPort;
+	}
+
+	public static Integer getAdminUseHttps() {
+		return adminUseHTTPS;
+	}
 
 
 }

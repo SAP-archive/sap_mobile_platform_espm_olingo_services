@@ -10,6 +10,8 @@ import javax.persistence.EntityListeners;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -39,7 +41,9 @@ public class Stock {
 	@Temporal(TemporalType.TIMESTAMP)
 	protected Calendar updatedTimestamp;
 
-	@OneToOne
+	@MapsId
+	@OneToOne()
+	@JoinColumn(name = "PRODUCT_ID")
 	private Product product;
 
 	public String getProductId() {

@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.xsmp.espm.model.Customer;
+import com.xsmp.espm.model.NotificationTarget;
 import com.xsmp.espm.model.Product;
 import com.xsmp.espm.model.ProductCategory;
 import com.xsmp.espm.model.Stock;
@@ -217,6 +218,52 @@ public class DataLoader {
 			em.close();
 		}
 	}
+	
+	/**
+	 * Load a placeholder notification service configuration into db.
+	 * If you wish to do your own builds of this WAR file, you can modify the source defaults, otherwise 
+	 * you will need to update the NotificationTarget record via the OData web API to set proper values.
+	 * 
+	 * Each row in this table specifies a single SMP push notification endpoint.
+	 * 
+	 * @see com.xsmp.espm.util.ProductPushNotificationTrigger
+	 * @see com.xsmp.espm.ESPMServiceFactory
+	 */
+	public void loadNotificationTarget() {
+		EntityManager em = emf.createEntityManager();
+		TypedQuery<NotificationTarget> queryNotificationTarget;
+		List<NotificationTarget> resNotificationTarget;
+		try {
+			em.getTransaction().begin();
+			queryNotificationTarget = em.createQuery("SELECT st FROM NotificationTarget st", NotificationTarget.class);
+			resNotificationTarget = queryNotificationTarget.getResultList();
+			if (resNotificationTarget.size() > 0) {
+				logger.info(resNotificationTarget.size()
+						+ " Notification Targets already configured in the database");
+			} else {
+				NotificationTarget target = new NotificationTarget();
+				
+				target.setHostname(com.xsmp.espm.ESPMServiceFactory.getHostname());
+				target.setHttps(com.xsmp.espm.ESPMServiceFactory.getAdminUseHttps());
+				target.setPort(com.xsmp.espm.ESPMServiceFactory.getAdminHttpPort());
+				target.setNotificationUser(com.xsmp.espm.ESPMServiceFactory.getUser());
+				target.setPassword(com.xsmp.espm.ESPMServiceFactory.getPassword());
+				target.setApplicationName(com.xsmp.espm.ESPMServiceFactory.getApplicationName());
+				
+				em.persist(target);
+
+				em.getTransaction().commit();
+				queryNotificationTarget = em.createQuery("SELECT st FROM NotificationTarget st",
+						NotificationTarget.class);
+				resNotificationTarget = queryNotificationTarget.getResultList();
+				logger.info(resNotificationTarget.size() + " Notification Targets installed into the db");
+			}
+		} catch (Exception e) {
+			logger.error("Exception occured", e);
+		} finally {
+			em.close();
+		}
+	}
 
 	/**
 	 * Load Products, Customers, Suppliers, Product Categories to db from
@@ -228,6 +275,7 @@ public class DataLoader {
 		List<Product> products = loadProducts(suppliers);
 		loadStock(products);
 		loadProductCategories(products);
+		loadNotificationTarget();
 	}
 
 }
