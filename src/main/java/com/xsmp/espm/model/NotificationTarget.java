@@ -50,6 +50,10 @@ public class NotificationTarget {
 	public Integer getNotficationtargetId() {
 		return notficationtargetId;
 	}
+	
+	public void setNotficationtargetId(Integer notficationtargetId) {
+		this.notficationtargetId = notficationtargetId;
+	}
 
 	public String getHostname() {
 		return hostname;
