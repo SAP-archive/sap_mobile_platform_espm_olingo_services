@@ -1,27 +1,26 @@
 package com.xsmp.espm.model;
 
-import java.util.Calendar;
-
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
-import com.xsmp.espm.util.Utility;
 
+/**
+ * This JPA Object represents an SMP application to be notified when an interesting change in the back-end data occurs.
+ * Currently, the only "interesting event" is an update of any Product record.  If other interesting events were defined,
+ * an EVENT_ID column could be added to this object to allow for notifications of different events to target specific
+ * applications.
+ * 
+ * @author Riley Rainey <riley.rainey@sap.com>
+ * @see com.xsmp.espm.util.ProductPushNotificationTrigger
+ */
 @Entity
-@Table(name = "ESPM_NOTIFICATION_TARGET")
+@Table(name = "ESPM_NOTIFICATION_TARGET", uniqueConstraints=@UniqueConstraint(columnNames = {"HOSTNAME", "APPLICATION_NAME"}))
 public class NotificationTarget {
 	@TableGenerator(name = "NotificationGenerator", table = "ESPM_ID_GENERATOR", pkColumnName = "GENERATOR_NAME", valueColumnName = "GENERATOR_VALUE", pkColumnValue = "NotificationTarget", initialValue = 1, allocationSize = 10)
 	@Id
@@ -29,22 +28,22 @@ public class NotificationTarget {
 	@Column(name = "NOTIFICATION_TARGET_ID")
 	private Integer notficationtargetId;
 
-	@Column(name = "HOSTNAME", length = 128)
+	@Column(name = "HOSTNAME", length = 128, nullable=false)
 	private String hostname;
 
-	@Column(name = "PORT")
+	@Column(name = "PORT", nullable=false)
 	private Integer port;
 	
-	@Column(name = "USE_HTTPS")
+	@Column(name = "USE_HTTPS", nullable=false)
 	private Integer https;
 
-	@Column(name = "NOTIFICATION_USER", length = 128)
+	@Column(name = "NOTIFICATION_USER", length = 128, nullable=false)
 	private String notificationUser;
 
 	@Column(name = "NOTIFICATION_PASSWORD", length = 128)
 	private String password;
 	
-	@Column(name = "APPLICATION_NAME", length = 256)
+	@Column(name = "APPLICATION_NAME", length = 256, nullable=false)
 	private String applicationName;
 
 	public Integer getNotficationtargetId() {
