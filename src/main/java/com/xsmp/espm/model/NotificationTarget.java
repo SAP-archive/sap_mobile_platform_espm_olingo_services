@@ -26,10 +26,10 @@ public class NotificationTarget {
 	@TableGenerator(name = "NotificationGenerator", table = "ESPM_ID_GENERATOR", pkColumnName = "GENERATOR_NAME", valueColumnName = "GENERATOR_VALUE", pkColumnValue = "NotificationTarget", initialValue = 1, allocationSize = 10)
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "NotificationGenerator")
-	@Column(name = "NOTIFICATION_TARGET_ID", length = 10)
+	@Column(name = "NOTIFICATION_TARGET_ID")
 	private Integer notficationtargetId;
 
-	@Column(name = "HOSTNAME", unique = true, length = 128)
+	@Column(name = "HOSTNAME", length = 128)
 	private String hostname;
 
 	@Column(name = "PORT")
