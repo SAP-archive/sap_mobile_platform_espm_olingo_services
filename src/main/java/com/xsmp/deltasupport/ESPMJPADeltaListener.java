@@ -28,7 +28,7 @@ import org.apache.olingo.odata2.jpa.processor.api.jpql.JPQLStatement;
  */
 public class ESPMJPADeltaListener extends ODataJPATombstoneEntityListener {
 	
-	static final String DATEFORMAT = "yyyy-MM-dd HH:mm:ss";
+	static final String DATEFORMAT = "yyyy-MM-dd'T'HH:mm:ss";
 
 	/*
 	 * Generate a web-service-specific delta token to be passed back to the
@@ -41,7 +41,6 @@ public class ESPMJPADeltaListener extends ODataJPATombstoneEntityListener {
 		final SimpleDateFormat sdf = new SimpleDateFormat(DATEFORMAT);
 	    sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
 	    final String utcTime = sdf.format(new Date());
-	    
 	    return utcTime;
 	}
 
@@ -81,6 +80,10 @@ public class ESPMJPADeltaListener extends ODataJPATombstoneEntityListener {
 		}
 		
 		String deltaToken = ODataJPATombstoneContext.getDeltaToken();
+		// remove "T" from the date string;
+		if (deltaToken != null) {
+			deltaToken = deltaToken.replace("T"," ");
+		}
 
 		Query query = null;
 
