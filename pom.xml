@@ -15,7 +15,7 @@
 	<groupId>com.smpdemo.espm</groupId>
 	<artifactId>ESPM_V1</artifactId>
 	<name>${project.artifactId}</name>
-	<version>1.3.3</version>
+	<version>1.3.4</version>
 
 	<packaging>war</packaging>
 
@@ -23,7 +23,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<version.cxf>2.7.6</version.cxf>
 		<version.slf4j>1.7.1</version.slf4j>
-		<version.olingo>2.0.3</version.olingo>
+		<version.olingo>2.0.4</version.olingo>
 	</properties>
 
 	<build>
