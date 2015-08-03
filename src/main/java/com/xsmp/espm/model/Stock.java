@@ -41,9 +41,9 @@ public class Stock {
 	@Temporal(TemporalType.TIMESTAMP)
 	protected Calendar updatedTimestamp;
 
-	@MapsId
+	//@MapsId
 	@OneToOne()
-	@JoinColumn(name = "PRODUCT_ID")
+	@JoinColumn(name = "PRODUCT_ID",referencedColumnName="PRODUCT_ID", insertable=false, updatable=false)
 	private Product product;
 
 	public String getProductId() {

@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NoResultException;
@@ -20,6 +21,7 @@ import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Query;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -86,10 +88,10 @@ public class Product {
 	@Column(name = "SUPPLIER_ID", length = 10)
 	private String supplierId;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	private Supplier supplier;
 	
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@PrimaryKeyJoinColumn
 	Stock stock;
 	
@@ -343,5 +345,21 @@ public class Product {
 
 	public void setUpdatedTimestamp(Calendar updatedTimestamp) {
 		this.updatedTimestamp = updatedTimestamp;
+	}
+
+	public static Map<String, BigDecimal> getPrices() {
+		return prices;
+	}
+
+	public static void setPrices(Map<String, BigDecimal> prices) {
+		Product.prices = prices;
+	}
+
+	public Stock getStock() {
+		return stock;
+	}
+
+	public void setStock(Stock stock) {
+		this.stock = stock;
 	}
 }

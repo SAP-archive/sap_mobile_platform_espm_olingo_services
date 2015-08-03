@@ -11,7 +11,7 @@
 				</JPAAttributes>
 				<JPARelationships>
 					<JPARelationship name="purchaseOrderHeader">Header</JPARelationship>
-					<JPARelationship name="product">Product</JPARelationship>
+					<JPARelationship name="product">ProductDetails</JPARelationship>
 				</JPARelationships>
 			</JPAEntityType>
 			<JPAEntityType name="ProductCategory">
@@ -53,7 +53,7 @@
 				<JPAAttributes>
 				</JPAAttributes>
 				<JPARelationships>
-					<JPARelationship name="product">Product</JPARelationship>
+					<JPARelationship name="product">ProductDetails</JPARelationship>
 				</JPARelationships>
 			</JPAEntityType>
 			<JPAEntityType name="SalesOrderHeader">
@@ -63,7 +63,7 @@
 				</JPAAttributes>
 				<JPARelationships>
 					<JPARelationship name="salesOrderItems">Items</JPARelationship>
-					<JPARelationship name="customer">Customer</JPARelationship>
+					<JPARelationship name="customer">CustomerDetails</JPARelationship>
 				</JPARelationships>
 			</JPAEntityType>
 			<JPAEntityType name="Product">
@@ -72,7 +72,7 @@
 				<JPAAttributes>
 				</JPAAttributes>
 				<JPARelationships>
-					<JPARelationship name="supplier">Supplier</JPARelationship>
+					<JPARelationship name="supplier">SupplierDetails</JPARelationship>
 				</JPARelationships>
 			</JPAEntityType>
 			<JPAEntityType name="Supplier">
@@ -91,7 +91,7 @@
 				</JPAAttributes>
 				<JPARelationships>
 					<JPARelationship name="salesOrderHeader">Header</JPARelationship>
-					<JPARelationship name="product">Product</JPARelationship>
+					<JPARelationship name="product">ProductDetails</JPARelationship>
 				</JPARelationships>
 			</JPAEntityType>
 		</JPAEntityTypes>
