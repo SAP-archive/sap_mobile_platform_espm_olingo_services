@@ -2,6 +2,7 @@ package com.xsmp.espm.model;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -19,6 +20,9 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.apache.olingo.odata2.api.commons.HttpStatusCodes;
+import org.apache.olingo.odata2.api.exception.ODataRuntimeApplicationException;
 
 @Entity
 @Table(name = "ESPM_SUPPLIER")
@@ -144,9 +148,30 @@ public class Supplier {
 	
 	@PrePersist
 	@PreUpdate
-	private void persist() {
+	private void persist() throws ODataRuntimeApplicationException {
 		Calendar calendar = Calendar.getInstance();
 		setUpdatedTimestamp( calendar );
+		
+		validateFieldsBeforeSave();
+	}
+	
+	private void validateFieldsBeforeSave() throws ODataRuntimeApplicationException {
+		// reject null or empty Name field
+		if (supplierName == null || supplierName.length() == 0) {
+			throw new ODataRuntimeApplicationException(
+						"Invalid value for supplier name field", 
+						Locale.ROOT, 
+						HttpStatusCodes.BAD_REQUEST
+						);
+		}
+		// reject null or empty phone number field
+		if (phoneNumber == null || phoneNumber.length() == 0) {
+			throw new ODataRuntimeApplicationException(
+						"Invalid value for phone number field", 
+						Locale.ROOT, 
+						HttpStatusCodes.BAD_REQUEST
+						);
+		}
 	}
 
 }

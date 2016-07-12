@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.persistence.Basic;
@@ -29,6 +30,9 @@ import javax.persistence.TypedQuery;
 import javax.persistence.CascadeType;
 
 import com.xsmp.espm.util.Utility;
+
+import org.apache.olingo.odata2.api.commons.HttpStatusCodes;
+import org.apache.olingo.odata2.api.exception.ODataRuntimeApplicationException;
 
 @Entity
 @Table(name = "ESPM_PRODUCT")
@@ -294,11 +298,14 @@ public class Product {
 
 	@PrePersist
 	@PreUpdate
-	private void persist() {
+	private void persist() throws ODataRuntimeApplicationException {
 		EntityManagerFactory emf = Utility.getEntityManagerFactory();
 		EntityManager em = emf.createEntityManager();
 		Calendar calendar = Calendar.getInstance();
 		setUpdatedTimestamp( calendar );
+		
+		validateFieldsBeforeSave();
+		
 		try {
 			em.getTransaction().begin();
 			ProductText productText = getProductText(em);
@@ -361,5 +368,16 @@ public class Product {
 
 	public void setStock(Stock stock) {
 		this.stock = stock;
+	}
+	
+	private void validateFieldsBeforeSave() throws ODataRuntimeApplicationException {
+		// reject null or empty Name field
+		if (name == null || name.length() == 0) {
+			throw new ODataRuntimeApplicationException(
+						"Invalid value for name field", 
+						Locale.ROOT, 
+						HttpStatusCodes.BAD_REQUEST
+						);
+		}
 	}
 }
